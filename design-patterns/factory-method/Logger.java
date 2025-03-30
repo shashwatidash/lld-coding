@@ -1,0 +1,62 @@
+public class Logger {
+    public static void main(String[]  args) {
+        ILoggerFactory loggerFactory = new ErrorLoggerFactory();
+        ILogger logger = loggerFactory.createLogger();
+        logger.log();
+    }
+}
+
+interface ILoggerFactory {
+    public ILogger createLogger();
+}
+
+class DebugLoggerFactory implements ILoggerFactory {
+    @Override
+    public ILogger createLogger() {
+        return new DebugLogger();
+    }
+}
+
+class ErrorLoggerFactory implements ILoggerFactory {
+    @Override
+    public ILogger createLogger() {
+        return new ErrorLogger();
+    }
+}
+
+class InfoLoggerFactory implements ILoggerFactory {
+    @Override
+    public ILogger createLogger() {
+        return new InfoLogger();
+    }
+}
+class LogLevel {
+    public static String DEBUG = "Debug";
+    public static String ERROR = "Error";
+    public static String INFO = "Info";
+}
+
+interface ILogger {
+    public void log();
+}
+
+class DebugLogger implements ILogger {
+    @Override
+    public void log() {
+        System.out.println("This is a Debug Log message");
+    }
+}
+
+class ErrorLogger implements ILogger {
+    @Override
+    public void log() {
+        System.out.println("This is a Error Log message");
+    }
+}
+
+class InfoLogger implements ILogger {
+    @Override
+    public void log() {
+        System.out.println("This is a Info Log message");
+    }
+}

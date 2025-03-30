@@ -1,0 +1,13 @@
+# Compiled Java Classes
+*.class
+*.jar
+*.war
+*.ear
+bin/
+out/
+target/
+
+# IDE & Editor Files (VS Code)
+.vscode/
+*.iml
+.idea/
