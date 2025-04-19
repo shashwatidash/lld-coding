@@ -1,8 +1,8 @@
 public class DocumentDemo {
-    public class void main(String[] args) {
+    public static void main(String[] args) {
         Document document = new Document();
-        ActionListener openDocumentListener = new ActionOpenDoc();
-        ActionListener saveDocumentListener = new ActionSaveDoc();
+        ActionListener openDocumentListener = new ActionOpenDoc(document);
+        ActionListener saveDocumentListener = new ActionSaveDoc(document);
 
         MenuOptions menu = new MenuOptions(openDocumentListener, saveDocumentListener);
         menu.clickOpen();
@@ -21,7 +21,7 @@ class Document {
     }
 }
 
-// Command Inteface 
+// Command Inteface x
 interface ActionListener {
     void execute();
 }
@@ -30,6 +30,10 @@ interface ActionListener {
 class ActionOpenDoc implements ActionListener {
     
     private Document document;
+
+    public ActionOpenDoc(Document document) {
+        this.document = document;
+    }
 
     @Override
     public void execute() {
@@ -41,6 +45,10 @@ class ActionOpenDoc implements ActionListener {
 class ActionSaveDoc implements ActionListener {
     
     private Document document;
+
+    public ActionSaveDoc(Document document) {
+        this.document = document;
+    }
 
     @Override
     public void execute() {
@@ -54,8 +62,8 @@ class MenuOptions {
     private ActionListener listenerSaveDoc;
 
     public MenuOptions(ActionListener listenerOpenDoc, ActionListener listenerSaveDoc) {
-        this.listenerOpenDoc = openDoc;
-        this.saveDoc = saveDoc;
+        this.listenerOpenDoc = listenerOpenDoc;
+        this.listenerSaveDoc = listenerSaveDoc;
     }
 
     // logic decides which listener's execute action is to be invoked
