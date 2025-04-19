@@ -4,9 +4,9 @@ public class DocumentDemo {
         ActionListener openDocumentListener = new ActionOpenDoc(document);
         ActionListener saveDocumentListener = new ActionSaveDoc(document);
 
-        MenuOptions menu = new MenuOptions(openDocumentListener, saveDocumentListener);
-        menu.clickOpen();
-        menu.clickSave();
+        MenuOptions menu = new MenuOptions();
+        menu.performClickAction(openDocumentListener);
+        menu.performClickAction(saveDocumentListener);
     }
 }
 
@@ -58,20 +58,8 @@ class ActionSaveDoc implements ActionListener {
 
 // Invoker 
 class MenuOptions {
-    private ActionListener listenerOpenDoc;
-    private ActionListener listenerSaveDoc;
-
-    public MenuOptions(ActionListener listenerOpenDoc, ActionListener listenerSaveDoc) {
-        this.listenerOpenDoc = listenerOpenDoc;
-        this.listenerSaveDoc = listenerSaveDoc;
-    }
-
     // logic decides which listener's execute action is to be invoked
-    public void clickOpen() {
-        listenerOpenDoc.execute();
-    }
-
-    public void clickSave() {
-        listenerSaveDoc.execute();
+    public void performClickAction(ActionListener listener) {
+        listener.execute();
     }
 }
