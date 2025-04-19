@@ -16,32 +16,23 @@ public class Solution2 {
     }
 }
 
-abstract class OrderSubject {
-    
-    protected int orderId;
-    protected String name;
-    protected String status;
-    protected List<Observer> observers;
+interface OrderSubject {
 
-    abstract void notifyObservers();
-    abstract void addObserver(Observer ob);
-    abstract void removeObserver(Observer ob);
-    abstract void setStatus(String status);
+    void notifyObservers();
+    void addObserver(Observer ob);
+    void removeObserver(Observer ob);
+    void setStatus(String status);
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getStatus() {
-        return this.status;
-    }
-
-    public int getOrderId() {
-        return this.orderId;
-    }
+    String getName();
+    String getStatus();
 }
 
-class RegularOrder extends OrderSubject {
+class RegularOrder implements OrderSubject {
+
+    private int orderId;
+    private String name;
+    private String status;
+    private List<Observer> observers;
 
     public RegularOrder(int orderId, String name) {
         this.orderId = orderId;
@@ -72,10 +63,25 @@ class RegularOrder extends OrderSubject {
     public void removeObserver(Observer ob) {
         observers.remove(ob);
     }
+
+    @Override
+    public String getStatus() {
+        return this.status;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }
 
 
-class PrimeDeliveryOrder extends OrderSubject {
+class PrimeDeliveryOrder implements OrderSubject {
+
+    private int orderId;
+    private String name;
+    private String status;
+    private List<Observer> observers;
 
     public PrimeDeliveryOrder(int orderId, String name) {
         this.orderId = orderId;
@@ -106,6 +112,16 @@ class PrimeDeliveryOrder extends OrderSubject {
     public void removeObserver(Observer ob) {
         observers.remove(ob);
     }
+
+    @Override
+    public String getStatus() {
+        return this.status;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }
 
 interface Observer {
@@ -127,7 +143,7 @@ class SenderObserver implements Observer {
     }
 
     public void update() {
-        System.out.println("Hi, " + emailId + " your order for item " + this.order.getName() + " is now " + this.order.getStatus());
+        System.out.println("Hi, " + this.emailId + " your order for item " + this.order.getName() + " is now " + this.order.getStatus());
     }
 }
 
